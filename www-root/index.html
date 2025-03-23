@@ -21,19 +21,45 @@
       @media only screen and (max-width: 700px) {
         figure { padding: 1rem; }
       }
+      section.todo { font-size: 75%; }
+      hr {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.2), 8px 8px 0 rgba(255,255,255,0.1);
+        margin-bottom: 1.5rem;
+      }
     </style>
   </head>
+
   <body>
     <h1>SolarPi ☀️🥧</h1>
+
     <h3>A Raspberry Pi Zero W is delivering this web site, powered only by the sun 🌞</h3>
-    <p>This site is entirely hosted on a little <a href="https://www.raspberrypi.com/products/raspberry-pi-zero-w/">Raspberry Pi Zero W</a>,
+
+    <p>This site is entirely hosted on a little 
+       <a href="https://www.raspberrypi.com/products/raspberry-pi-zero-w/">Raspberry Pi Zero W</a>,
        stuck in a waterproof box with a solar panel attached
-       to it. It's only up when the sun is shining sufficiently. Otherwise, it is down.<p>
+       to it. It has a small battery, so might be up after the sun is down, or might not.<p>
+
     <figure>
       <img src="images/current.jpg">
       <figcaption>The latest image from the attached RaspberryPi Camera</figcaption>
     </figure>
+
     <p>This is a useless experiment by <a href="https://www.trisweb.com">trisweb</a></p>
-    <p><caption>Last updated March 13th, 2025</caption></p>
+
+    <hr>
+
+    <section class="todo">
+      <p>ToDo List:</p>
+      <ul>
+        <li>Switch cam to long-exposure if after sunset</li>
+        <li>Measure and display battery charge</li>
+        <li>Measure and display temperature and humidity</li>
+        <li>Measure and display rain state via sensor</li>
+      </ul>
+    </section>
+
+    <p><caption>Version 1.0, March 22nd, 2025</caption></p>
   </body>
 </html>
