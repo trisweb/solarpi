@@ -9,7 +9,9 @@ echo "Refreshing webcam image..." | systemd-cat -t refresh-camera -p info
 
 /usr/bin/rpicam-still -n --immediate --width 1200 --height 900 \
 	-q 82 --sharpness 1.1 --saturation 1.1 --contrast 1.1 \
-	-o $WORK/camera_new.jpg
+	--metering average -o $WORK/camera_new.jpg
+
+	# --gain 1 --awbgains 1,1 --shutter 10000000 \
 
 datetime=$(identify -format '%[exif:datetime]' $WORK/camera_new.jpg |  awk -F'[ :]' '{print $2"/"$3"/"$1 " " $4":"$5" ET"}')
 
