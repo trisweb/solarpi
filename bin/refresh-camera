@@ -22,7 +22,7 @@ fi
 
 datetime=$(identify -format '%[exif:datetime]' $WORK/camera_new.jpg |  awk -F'[ :]' '{print $2"/"$3"/"$1 " " $4":"$5" ET"}')
 
-convert $WORK/camera_new.jpg -flip -gravity SouthEast -pointsize 30 -undercolor '#0008' \
+convert $WORK/camera_new.jpg -flip -flop -gravity SouthEast -pointsize 30 -undercolor '#0007' \
 	-fill white -annotate +20+20 "$datetime" \
 	$WORK/camera_stamped.jpg
 
