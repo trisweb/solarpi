@@ -4,25 +4,31 @@ WORK=/tmp/camera
 DEST=/var/www/html/images
 MODE="${1:-normal}"
 
+# Get the current sun position using zon, a very handy utility for sunrise/sunset
+# https://github.com/Aygath/zon
+SUN="$(zon -c)"
+
 mkdir -p $WORK
 
 echo "Refreshing webcam image ($MODE)..." # | systemd-cat -t refresh-camera -p info
 
-if [[ $MODE == "long" ]]; then
+if [[ $MODE == "long" || $SUN == "-" ]]; then
 	echo "!!! Taking long exposure"
 	/usr/bin/rpicam-still -n --immediate --width 1200 --height 900 \
 		--gain 1 --awbgains 1,1 --shutter 10000000 \
-                -q 82 --sharpness 1.1 --saturation 1.1 --contrast 1.1 \
+                -q 82 --sharpness 1.1 --saturation 1.2 --contrast 1.1 \
                 -o $WORK/camera_new.jpg
 else
 	/usr/bin/rpicam-still -n --immediate --width 1200 --height 900 \
-		-q 82 --sharpness 1.1 --saturation 1.1 --contrast 1.1 \
+		-q 82 --sharpness 1.1 --saturation 1.2 --contrast 1.1 \
 		-o $WORK/camera_new.jpg
 fi
 
 datetime=$(identify -format '%[exif:datetime]' $WORK/camera_new.jpg |  awk -F'[ :]' '{print $2"/"$3"/"$1 " " $4":"$5" ET"}')
 
-convert $WORK/camera_new.jpg -flip -flop -gravity SouthEast -pointsize 30 -undercolor '#0007' \
+convert $WORK/camera_new.jpg -flip -flop \
+	-colorspace Lab -channel 0 -auto-level +channel -colorspace sRGB \
+	-gravity SouthEast -pointsize 30 -undercolor '#0007' \
 	-fill white -annotate +20+20 "$datetime" \
 	$WORK/camera_stamped.jpg
 
