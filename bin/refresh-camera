@@ -6,7 +6,7 @@ MODE="${1:-normal}"
 
 # Get the current sun position using zon, a very handy utility for sunrise/sunset
 # https://github.com/Aygath/zon
-SUN="$(zon -c)"
+SUN="$(zon -c --civil)"
 
 mkdir -p $WORK
 
